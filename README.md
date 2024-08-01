@@ -24,3 +24,4 @@ target_link_libraries(chat
         ${USED_LIBS}
 )
 ```
+<hr>
