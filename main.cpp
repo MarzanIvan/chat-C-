@@ -28,7 +28,7 @@ int main() {
         std::cout << "Connection was at " << std::ctime(&currenttime) << std::endl;
 
         socket.write_some(asio::buffer(request.data(), request.size()),ec);
-        //std::this_thread::sleep_for(std::chrono::seconds(3));
+        socket.wait(socket.wait_read);
 
         size_t bytes = socket.available();
         std::cout << bytes << " bytes are available to read\n";
