@@ -1,12 +1,15 @@
 #include <iostream>
-
-#define ASIO_STANDALONE
+#include <pqxx/pqxx>
 #include <boost/asio.hpp>
 #include <asio/ts/internet.hpp>
 #include <asio/ts/buffer.hpp>
 #include <string>
 #include <thread>
 #include <chrono>
+
+using namespace pqxx;
+using namespace std;
+#define ASIO_STANDALONE
 
 int main() {
     asio::error_code ec;
@@ -42,6 +45,14 @@ int main() {
         }
     } else {
         std::cout << "Something went wrong!";
+    }
+    std::cout << "Network test was done\nNext is to connect to database" << std::endl;
+    connection con("dbname = postgres user = postgres password = ioann hostaddr = 127.0.0.1 port = 5433");
+    if (con.is_open()) {
+        cout << "connection to " << con.dbname() <<  " was done";
+
+    } else {
+        std::cout << "connecion failed";
     }
     return 0;
 }
