@@ -50,7 +50,10 @@ int main() {
     connection con("dbname = postgres user = postgres password = ioann hostaddr = 127.0.0.1 port = 5433");
     if (con.is_open()) {
         cout << "connection to " << con.dbname() <<  " was done";
-
+        pqxx::work executor(con);
+        std::string sql{"CREATE TABLE students(surname varchar(15));"};
+        executor.exec(sql);
+        executor.commit();
     } else {
         std::cout << "connecion failed";
     }
